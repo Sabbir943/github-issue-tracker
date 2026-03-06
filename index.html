@@ -11,10 +11,45 @@
 
 </head>
 
-<body>
+<body >
+    <div class="w-5/12 mx-auto bg-white shadow-2xl rounded-2xl border-base-300 p-5 ">
+        <div class="m-3 text-center space-y-3">
 
-    <h1>hello</h1>
-<script src="./script.js"></script>
+            <img  class="mx-auto" src="./assets/github-logo.png" alt="">
+            <h1 class="font-bold text-2xl">GitHub Issues Tracker</h1>
+            <p class="text-[#64748B]">Sign in to manage your issues</p>
+        </div>
+        <div class="w-11/12 mx-auto  flex justify-center items-center">
+
+            
+                
+            
+
+            <fieldset class="fieldset  rounded-box w-xs  p-8">
+                 
+               
+                 <label  class="label text-xl">Username</label>
+                 <input id="userName" type="email" class="input w-full" placeholder="Enter Username" />
+               
+                 <label class="label  text-xl">Password</label>
+                 <input id="password" type="password" class="input w-full" placeholder="Password" />
+               
+                 <button id="signUpBtn" class="btn btn-primary mt-4 w-full">Sign In</button>
+                 <div class="text-center space-y-3">
+                <h1>Demo Credentials:</h1>
+                <hr>
+                <div class="bg-slate-200 p-3 rounded-xl">
+                    <p>Username: admin</p>
+                    <p>Password: admin123</p>
+                </div>
+               </div>
+
+               </fieldset>
+               
+        </div>
+    </div>
+<script src="./home.js"></script>
+ <script src="./main.js"></script>
 </body>
 
 </html>
