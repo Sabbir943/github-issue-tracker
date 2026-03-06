@@ -1,11 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>github-issue-tracker</title>
+    <!-- tailwind and daisy -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
+
 <body>
-    <h1>hello world</h1>
+
+    <!-- Nav bar -->
+    <div class="navbar w-10/12 mx-auto ">
+        <img class="w-10" src="./assets/github-logo.png" alt="">
+        <div class="flex-1">
+
+            <a class="btn btn-ghost text-xl">GitHub Issues Tracker</a>
+        </div>
+        <div class="flex gap-4">
+            <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-full" />
+            <button class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i>Find</button>
+
+        </div>
+    </div>
+    <!-- toggle button -->
+    <div class="w-8/12 mx-auto bg-slate-200 p-3 rounded-xl mt-4">
+        <button class="btn">All</button>
+        <button class="btn">Open</button>
+        <button class="btn">Closed</button>
+    </div>
+    <!-- issue count -->
+    <div class="w-8/12 mx-auto bg-slate-100 p-3 rounded-xl mt-4" >
+        <div class="flex justify-between items-center">
+
+            <div class="flex gap-4">
+                <div class="bg-blue-100 rounded-full p-2">
+                <img src="./assets/Aperture.png" alt="">
+            </div>
+            <div class="font-bold">
+    
+                <p>50 Issues</p>
+                <p class="text-[#64748B]">Track and manage your project issues</p>
+            </div>
+    
+            </div>
+            <div class="flex gap-3">
+                  <div class="flex">
+                <img src="./assets/Open-Status.png" alt="">
+                <span>Open</span>
+            </div>
+            <div class="flex">
+                <img src="./assets/Closed- Status .png" alt="">
+                <span>Closed</span>
+            </div>
+    
+            </div>
+        </div>
+      
+        
+    </div>
+    <!-- Main issue data -->
+
+
+    <script src="./main.js"></script>
 </body>
+
 </html>
