@@ -32,9 +32,9 @@
     </div>
     <!-- toggle button -->
     <div class="w-10/12 mx-auto bg-slate-200 p-3 rounded-xl mt-4">
-        <button class="btn">All</button>
-        <button class="btn">Open</button>
-        <button class="btn">Closed</button>
+        <button onclick="toggle('all')" id="btn-all" class=" btn ">All</button>
+        <button onclick="toggle('open')" id="btn-open" class="btn">Open</button>
+        <button onclick="toggle('closed')" id="btn-closed" class="btn">Closed</button>
     </div>
     <!-- issue count -->
     <div class="w-10/12 mx-auto bg-slate-100 p-3 rounded-xl mt-4" >
@@ -72,6 +72,8 @@
        
         
      </div>
+     <!-- for open btn -->
+      
 
 
     <script src="./main.js"></script>
