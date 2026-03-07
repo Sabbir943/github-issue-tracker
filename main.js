@@ -2,9 +2,13 @@ const mainContainer=document.getElementById('main-conatainer');
 const btnAll=document.getElementById('btn-all');
 const btnOpen=document.getElementById('btn-open');
 const btnClose=document.getElementById('btn-closed');
+const githubIsuueModal=document.getElementById('github-isuue-modal');
+const detailsShow=document.getElementById('detailsShow');
+const count=document.getElementById('count');
 const activeTab=['bg-blue-500','text-white'];
-const inactiveTab=['bg-gray','text-black'];
+const inactiveTab=['bg-gray-200','text-black'];
 let currentTab="all";
+let allIssue=[];
 // toogle btn
 function toggle(tab){
     currentTab=tab;
@@ -20,27 +24,45 @@ function toggle(tab){
            tabName.classList.remove(...activeTab);
         }
     }
+    filtteredIssue();
 }
-toggle(currentTab);
-
 
 const createElement=(arr)=>{
     const htmlElement=arr.map(item=>`<div class="badge badge-warning">${item}</div>`)
     return htmlElement.join(' ');
     
 }
+// load by api
 const loadAllIsuue=()=>{
     const url="https://phi-lab-server.vercel.app/api/v1/lab/issues"
     fetch(url)
     .then(res=>res.json())
-    .then(data=>displayAllIssue(data.data))
+    .then(data=>{
+        allIssue=data.data;
+        filtteredIssue();
+    })
 }
-displayAllIssue=(data)=>{
+// filter by button toggle
+const filtteredIssue=()=>{
+    if(currentTab=='all'){
+        displayAllIssue(allIssue);
+        count.innerText=allIssue.length;
+    }
+    else {
+        const filtered=allIssue.filter(item=>item.status==currentTab);
+        displayAllIssue(filtered);
+        count.innerText=filtered.length;
+    }
+}
+
+
+// diplay the issue card
+  function displayAllIssue(data){
     mainContainer.innerHTML="";
     data.forEach(info=>{
         const newDiv=document.createElement('div');
         newDiv.innerHTML=`
-         <div onclick="showIssueModal(${info.id})" class="card card-body shadow-2xl rounded bg-white space-y-3 ">
+         <div onclick="showIssueModal(${info.id})" class="card card-body shadow-2xl rounded-md bg-white space-y-3 ">
 
             <div class="flex justify-between items-center  ">
               <div>
@@ -88,8 +110,7 @@ displayAllIssue=(data)=>{
     })
 }
 // show modal
-const githubIsuueModal=document.getElementById('github-isuue-modal');
-const detailsShow=document.getElementById('detailsShow');
+
 async function showIssueModal(id){
 const res=await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
 const data=await res.json();
@@ -126,5 +147,7 @@ githubIsuueModal.innerHTML=`
 githubIsuueModal.showModal();
 }
 
+
+toggle(currentTab);
 loadAllIsuue();
 
