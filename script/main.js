@@ -50,11 +50,13 @@ const loadAllIsuue=()=>{
 const filtteredIssue=()=>{
    
     if(currentTab=='all'){
+        showLoading();
         displayAllIssue(allIssue);
         count.innerText=allIssue.length;
     }
     else {
         const filtered=allIssue.filter(item=>item.status==currentTab);
+        showLoading();
         displayAllIssue(filtered);
         count.innerText=filtered.length;
     }
@@ -63,11 +65,12 @@ const filtteredIssue=()=>{
 
 // diplay the issue card
   function displayAllIssue(data){
+    
     mainContainer.innerHTML="";
     data.forEach(info=>{
         const newDiv=document.createElement('div');
         newDiv.innerHTML=`
-         <div onclick="showIssueModal(${info.id})" class="card card-body shadow-2xl rounded-md bg-white space-y-3 ">
+         <div onclick="showIssueModal(${info.id})" class="cursor-pointer card card-body shadow-2xl rounded-md bg-white space-y-3 ">
 
             <div class="flex justify-between items-center  ">
               <div>
@@ -123,14 +126,16 @@ const modalDetails=data.data;
 githubIsuueModal.innerHTML=`
  <div id="detailsShow" class="modal-box space-y-3 p-5 bg-white shadow rounded-2xl">
     <h1 class="text-2xl font-bold">${modalDetails.title}</h1>
-    <div class="flex justify-between items-center ">
+    <div class="flex gap-3 ">
 
         <div class="badge badge-success">${modalDetails.status}</div>
         <div>${modalDetails.author}</div>
        
-        <div>${new Date().toLocaleDateString()}</div>
+        <div>${modalDetails.createdAt}</div>
     </div>
+         
     <div>${createElement(modalDetails.labels)}</div>
+    <div class="line-clamp-2 text-[#64748B]">${modalDetails.description}</div>
     <div class="flex justify-between bg-base-200 p-3 font-blod">
         <div  class="space-y-2">
             <p>Assigne</p>
@@ -155,12 +160,15 @@ githubIsuueModal.showModal();
 // search btn
 searchBtn.addEventListener('click',()=>{
     const input=inputText.value.trim().toLowerCase();
-    showLoading();
+    
     fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${input}`)
+    
     .then(res=>res.json())
     .then(data=>{
         allCart=data.data;
+        
         const filterData=allCart.filter(item=>item.title.trim().toLowerCase().includes(input));
+        
         displayAllIssue(filterData);
         count.innerText=filterData.length;
         if(filterData.length===0){
