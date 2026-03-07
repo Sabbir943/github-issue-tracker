@@ -6,7 +6,7 @@ const activeTab=['bg-blue-500','text-white'];
 const inactiveTab=['bg-gray','text-black'];
 let currentTab="all";
 // toogle btn
-function toogle(tab){
+function toggle(tab){
     currentTab=tab;
     const tabs=["all","open","closed"];
     for(const t of tabs){
@@ -21,11 +21,11 @@ function toogle(tab){
         }
     }
 }
-toogle(currentTab);
+toggle(currentTab);
 
 
 const createElement=(arr)=>{
-    const htmlElement=arr.map(item=>`<div class="badge badge-success">${item}</div>`)
+    const htmlElement=arr.map(item=>`<div class="badge badge-warning">${item}</div>`)
     return htmlElement.join(' ');
     
 }
@@ -40,9 +40,9 @@ displayAllIssue=(data)=>{
     data.forEach(info=>{
         const newDiv=document.createElement('div');
         newDiv.innerHTML=`
-         <div class="card card-body shadow-2xl rounded bg-white space-y-3">
+         <div onclick="showIssueModal(${info.id})" class="card card-body shadow-2xl rounded bg-white space-y-3 ">
 
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center  ">
               <div>
                 <img src="./assets/Open-Status.png" alt="">
               </div>
@@ -50,7 +50,7 @@ displayAllIssue=(data)=>{
             </div>
             <p class="font-bold text-[18px]">${info.title}</p>
             <p class="line-clamp-2">${info.description}</p>
-            <div id="status" class="">${createElement(info.labels)}</div>
+            <div id="status" class="flex justify-between">${createElement(info.labels)}</div>
             <hr>
             <div class="flex justify-between">
                 <span>${info.author}</span>
@@ -87,7 +87,44 @@ displayAllIssue=(data)=>{
         
     })
 }
-btnAll.addEventListener('click',()=>{
-   loadAllIsuue(); 
-})
+// show modal
+const githubIsuueModal=document.getElementById('github-isuue-modal');
+const detailsShow=document.getElementById('detailsShow');
+async function showIssueModal(id){
+const res=await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
+const data=await res.json();
+const modalDetails=data.data;
+githubIsuueModal.innerHTML=`
+ <div id="detailsShow" class="modal-box space-y-3 p-5 bg-white shadow rounded-2xl">
+    <h1 class="text-2xl font-bold">${modalDetails.title}</h1>
+    <div class="flex justify-between items-center ">
+
+        <div class="badge badge-success">${modalDetails.status}</div>
+        <div>${modalDetails.author}</div>
+       
+        <div>${new Date().toLocaleDateString()}</div>
+    </div>
+    <div>${createElement(modalDetails.labels)}</div>
+    <div class="flex justify-between bg-base-200 p-3 font-blod">
+        <div  class="space-y-2">
+            <p>Assigne</p>
+            <p>${modalDetails.assignee?modalDetails.assignee:"Not Assigne"}</p>
+        </div>
+        <div class="space-y-2">
+            <p>prioty</p>
+            <p class="badge badge-error">${modalDetails.priority}</p>
+        </div>
+    </div>
+    <div class="modal-action">
+      <form method="dialog">
+        <!-- if there is a button in form, it will close the modal -->
+        <button class="btn btn-primary">Close</button>
+      </form>
+    </div>
+  </div>
+`
+githubIsuueModal.showModal();
+}
+
 loadAllIsuue();
+
