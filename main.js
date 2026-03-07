@@ -5,6 +5,8 @@ const btnClose=document.getElementById('btn-closed');
 const githubIsuueModal=document.getElementById('github-isuue-modal');
 const detailsShow=document.getElementById('detailsShow');
 const count=document.getElementById('count');
+const searchBtn=document.getElementById('searchBtn');
+const inputText=document.getElementById('inputText');
 const activeTab=['bg-blue-500','text-white'];
 const inactiveTab=['bg-gray-200','text-black'];
 let currentTab="all";
@@ -34,7 +36,9 @@ const createElement=(arr)=>{
 }
 // load by api
 const loadAllIsuue=()=>{
+    
     const url="https://phi-lab-server.vercel.app/api/v1/lab/issues"
+    showLoading();
     fetch(url)
     .then(res=>res.json())
     .then(data=>{
@@ -44,6 +48,7 @@ const loadAllIsuue=()=>{
 }
 // filter by button toggle
 const filtteredIssue=()=>{
+   
     if(currentTab=='all'){
         displayAllIssue(allIssue);
         count.innerText=allIssue.length;
@@ -145,6 +150,38 @@ githubIsuueModal.innerHTML=`
   </div>
 `
 githubIsuueModal.showModal();
+}
+
+// search btn
+searchBtn.addEventListener('click',()=>{
+    const input=inputText.value.trim().toLowerCase();
+    showLoading();
+    fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${input}`)
+    .then(res=>res.json())
+    .then(data=>{
+        allCart=data.data;
+        const filterData=allCart.filter(item=>item.title.trim().toLowerCase().includes(input));
+        displayAllIssue(filterData);
+        count.innerText=filterData.length;
+        if(filterData.length===0){
+            mainContainer.innerHTML=`
+            <div class=" col-span-full text-center space-y-3 font-bangla">
+            <img class="mx-auto" src="./assets/alert-error.png" alt="">
+            <h1 class="text-gray-400 font-bold  ">No found Issue</h1>
+            <p class="font-bold text-4xl">Please try again</p>
+          </div>
+        
+            `
+        }
+    })
+})
+// show loading
+const showLoading=()=>{
+    mainContainer.innerHTML=`
+    <div class="flex justify-center items-center h-48">
+        <span class="loading loading-bars loading-xl"></span>
+    </div>
+    `
 }
 
 
