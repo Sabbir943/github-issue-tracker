@@ -1,5 +1,4 @@
    - 1️⃣ What is the difference between var, let, and const?
- 
     -->  var is function scoped,that is re-declearable In a big project we can not use var. var is a very confusing.
     -->   let is a block scoped,it can be re-asssign.when we need to update value ,we can use let
     -->  const declear the fixed value.We can not change the value,when we use const.
