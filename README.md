@@ -1,24 +1,37 @@
-   - 1️⃣ What is the difference between var, let, and const?
-    -->  var is function scoped,that is re-declearable In a big project we can not use var. var is a very confusing.
-    -->   let is a block scoped,it can be re-asssign.when we need to update value ,we can use let
-    -->  const declear the fixed value.We can not change the value,when we use const.
+# JavaScript Interview Questions and Answers
 
-    - 2️⃣ What is the spread operator (...)?
-     -->   It is a feature of javascipt ES6.It is iterable or object properties into individual.It is very useful to when we copy array element to another array
+## 1️⃣ What is the difference between var, let, and const?
 
-    - 3️⃣ What is the difference between map(), filter(), and forEach()?
-     -->  map()-->map creates new array,it explor all array element
+var is function scoped, that is re-declarable. In a big project we cannot use var. var is very confusing.
 
-     -->  filter()-->Exlpor the all element when meet the specific condition
+let is block scoped, it can be re-assigned. When we need to update value, we can use let.
 
-     -->  Execute a function for each element
-     
-    - 4️⃣ What is an arrow function?
-    -->    Arrow function is feature of Javascript ES6.By using arrow function code can be shorter and readable
+const declares a fixed value. We cannot change the value when we use const.
 
-    - 5️⃣ What are template literals?
-    -->  JavaScript string literals introduced in ES6 that allow for embedded expressions, multi-line strings, and string interpolation using backtick  characters
+---
 
+## 2️⃣ What is the spread operator (...)?
 
+It is a feature of JavaScript ES6. It spreads iterable or object properties into individual elements. It is very useful when we copy array elements to another array.
 
+---
 
+## 3️⃣ What is the difference between map(), filter(), and forEach()?
+
+**map()** → map creates a new array, it explores all array elements.
+
+**filter()** → Explores all elements and returns those that meet a specific condition.
+
+**forEach()** → Executes a function for each element.
+
+---
+
+## 4️⃣ What is an arrow function?
+
+Arrow function is a feature of JavaScript ES6. By using arrow functions, code can be shorter and more readable.
+
+---
+
+## 5️⃣ What are template literals?
+
+JavaScript string literals introduced in ES6 that allow for embedded expressions, multi-line strings, and string interpolation using backtick characters.
