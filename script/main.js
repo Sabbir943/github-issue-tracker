@@ -1,75 +1,75 @@
-const mainContainer=document.getElementById('main-conatainer');
-const btnAll=document.getElementById('btn-all');
-const btnOpen=document.getElementById('btn-open');
-const btnClose=document.getElementById('btn-closed');
-const githubIsuueModal=document.getElementById('github-isuue-modal');
-const detailsShow=document.getElementById('detailsShow');
-const count=document.getElementById('count');
-const searchBtn=document.getElementById('searchBtn');
-const inputText=document.getElementById('inputText');
-const activeTab=['bg-blue-500','text-white'];
-const inactiveTab=['bg-gray-200','text-black'];
-let currentTab="all";
-let allIssue=[];
+const mainContainer = document.getElementById('main-conatainer');
+const btnAll = document.getElementById('btn-all');
+const btnOpen = document.getElementById('btn-open');
+const btnClose = document.getElementById('btn-closed');
+const githubIsuueModal = document.getElementById('github-isuue-modal');
+const detailsShow = document.getElementById('detailsShow');
+const count = document.getElementById('count');
+const searchBtn = document.getElementById('searchBtn');
+const inputText = document.getElementById('inputText');
+const activeTab = ['bg-blue-500', 'text-white'];
+const inactiveTab = ['bg-gray-200', 'text-black'];
+let currentTab = "all";
+let allIssue = [];
 // toogle btn
-function toggle(tab){
-    currentTab=tab;
-    const tabs=["all","open","closed"];
-    for(const t of tabs){
-        const tabName=document.getElementById('btn-'+t);
-        if(t==tab){
-          tabName.classList.remove(...inactiveTab);
-          tabName.classList.add(...activeTab);
+function toggle(tab) {
+    currentTab = tab;
+    const tabs = ["all", "open", "closed"];
+    for (const t of tabs) {
+        const tabName = document.getElementById('btn-' + t);
+        if (t == tab) {
+            tabName.classList.remove(...inactiveTab);
+            tabName.classList.add(...activeTab);
         }
-        else{
+        else {
             tabName.classList.add(...inactiveTab);
-           tabName.classList.remove(...activeTab);
+            tabName.classList.remove(...activeTab);
         }
     }
     filtteredIssue();
 }
 
-const createElement=(arr)=>{
-    const htmlElement=arr.map(item=>`<div class="badge badge-warning">${item}</div>`)
+const createElement = (arr) => {
+    const htmlElement = arr.map(item => `<div class="badge badge-warning">${item}</div>`)
     return htmlElement.join(' ');
-    
+
 }
 // load by api
-const loadAllIsuue=()=>{
-    
-    const url="https://phi-lab-server.vercel.app/api/v1/lab/issues"
+const loadAllIsuue = () => {
+
+    const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues"
     showLoading();
     fetch(url)
-    .then(res=>res.json())
-    .then(data=>{
-        allIssue=data.data;
-        filtteredIssue();
-    })
+        .then(res => res.json())
+        .then(data => {
+            allIssue = data.data;
+            filtteredIssue();
+        })
 }
 // filter by button toggle
-const filtteredIssue=()=>{
-   
-    if(currentTab=='all'){
+const filtteredIssue = () => {
+
+    if (currentTab == 'all') {
         showLoading();
         displayAllIssue(allIssue);
-        count.innerText=allIssue.length;
+        count.innerText = allIssue.length;
     }
     else {
-        const filtered=allIssue.filter(item=>item.status==currentTab);
+        const filtered = allIssue.filter(item => item.status == currentTab);
         showLoading();
         displayAllIssue(filtered);
-        count.innerText=filtered.length;
+        count.innerText = filtered.length;
     }
 }
 
 
 // diplay the issue card
-  function displayAllIssue(data){
-    
-    mainContainer.innerHTML="";
-    data.forEach(info=>{
-        const newDiv=document.createElement('div');
-        newDiv.innerHTML=`
+function displayAllIssue(data) {
+
+    mainContainer.innerHTML = "";
+    data.forEach(info => {
+        const newDiv = document.createElement('div');
+        newDiv.innerHTML = `
          <div onclick="showIssueModal(${info.id})" class="cursor-pointer card card-body shadow-2xl rounded-md bg-white space-y-3 ">
 
             <div class="flex justify-between items-center  ">
@@ -88,7 +88,7 @@ const filtteredIssue=()=>{
                 
             </div>
             <div class="flex justify-between">
-                <span>${info.assignee?info.assignee:"UnAssigne"}</span>
+                <span>${info.assignee ? info.assignee : "UnAssigne"}</span>
                 <span>${info.updatedAt}</span>
                 
             </div>
@@ -97,33 +97,33 @@ const filtteredIssue=()=>{
            
 
         `
-        
-        if(info.status=="open"){
-           newDiv.classList.add('border-t-6','border-green-700')
-           
-          
-           
+
+        if (info.status == "open") {
+            newDiv.classList.add('border-t-6', 'border-green-700')
+
+
+
         }
-        else{
-            newDiv.classList.add('border-t-6','border-blue-700')
-            
-            
+        else {
+            newDiv.classList.add('border-t-6', 'border-blue-700')
+
+
         }
 
         mainContainer.append(newDiv);
-        
-       
-        
-        
+
+
+
+
     })
 }
 // show modal
 
-async function showIssueModal(id){
-const res=await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
-const data=await res.json();
-const modalDetails=data.data;
-githubIsuueModal.innerHTML=`
+async function showIssueModal(id) {
+    const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
+    const data = await res.json();
+    const modalDetails = data.data;
+    githubIsuueModal.innerHTML = `
  <div id="detailsShow" class="modal-box space-y-3 p-5 bg-white shadow rounded-2xl">
     <h1 class="text-2xl font-bold">${modalDetails.title}</h1>
     <div class="flex gap-3 ">
@@ -139,7 +139,7 @@ githubIsuueModal.innerHTML=`
     <div class="flex justify-between bg-base-200 p-3 font-blod">
         <div  class="space-y-2">
             <p>Assigne</p>
-            <p>${modalDetails.assignee?modalDetails.assignee:"Not Assigne"}</p>
+            <p>${modalDetails.assignee ? modalDetails.assignee : "Not Assigne"}</p>
         </div>
         <div class="space-y-2">
             <p>prioty</p>
@@ -154,25 +154,25 @@ githubIsuueModal.innerHTML=`
     </div>
   </div>
 `
-githubIsuueModal.showModal();
+    githubIsuueModal.showModal();
 }
 
 // search btn
-searchBtn.addEventListener('click',()=>{
-    const input=inputText.value.trim().toLowerCase();
-    
+searchBtn.addEventListener('click', () => {
+    const input = inputText.value.trim().toLowerCase();
+
     fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${input}`)
-    
-    .then(res=>res.json())
-    .then(data=>{
-        allCart=data.data;
-        
-        const filterData=allCart.filter(item=>item.title.trim().toLowerCase().includes(input));
-        
-        displayAllIssue(filterData);
-        count.innerText=filterData.length;
-        if(filterData.length===0){
-            mainContainer.innerHTML=`
+
+        .then(res => res.json())
+        .then(data => {
+            allCart = data.data;
+
+            const filterData = allCart.filter(item => item.title.trim().toLowerCase().includes(input));
+
+            displayAllIssue(filterData);
+            count.innerText = filterData.length;
+            if (filterData.length === 0) {
+                mainContainer.innerHTML = `
             <div class=" col-span-full text-center space-y-3 font-bangla">
             <img class="mx-auto" src="./assets/alert-error.png" alt="">
             <h1 class="text-gray-400 font-bold  ">No found Issue</h1>
@@ -180,12 +180,12 @@ searchBtn.addEventListener('click',()=>{
           </div>
         
             `
-        }
-    })
+            }
+        })
 })
 // show loading
-const showLoading=()=>{
-    mainContainer.innerHTML=`
+const showLoading = () => {
+    mainContainer.innerHTML = `
     <div class="flex justify-center items-center h-48">
         <span class="loading loading-bars loading-xl"></span>
     </div>

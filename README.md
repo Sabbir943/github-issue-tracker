@@ -1,8 +1,7 @@
    - 1️⃣ What is the difference between var, let, and const?
+ 
     -->  var is function scoped,that is re-declearable In a big project we can not use var. var is a very confusing.
-
     -->   let is a block scoped,it can be re-asssign.when we need to update value ,we can use let
-
     -->  const declear the fixed value.We can not change the value,when we use const.
 
     - 2️⃣ What is the spread operator (...)?
@@ -19,7 +18,7 @@
     -->    Arrow function is feature of Javascript ES6.By using arrow function code can be shorter and readable
 
     - 5️⃣ What are template literals?
-    -->  JavaScript string literals introduced in ES6 that allow for embedded expressions, multi-line strings, and string interpolation using backtick ( ` ) characters
+    -->  JavaScript string literals introduced in ES6 that allow for embedded expressions, multi-line strings, and string interpolation using backtick  characters
 
 
 
